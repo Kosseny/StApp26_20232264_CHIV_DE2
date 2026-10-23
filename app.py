@@ -50,7 +50,7 @@ st.sidebar.write("**Course:** Data Analysis and Visualization")
 st.sidebar.write("**Professor:** Mano Mathew")
 st.sidebar.image("assets/logo_efrei.png", width=200)
 
-# Filter data by department
+#by department
 if selected_department == "All France":
     filtered_raw = raw
 else:
@@ -58,24 +58,24 @@ else:
         raw["Libellé du département"] == selected_department
     ]
     
-# KPI
+#KPI
 show_kpis(filtered_raw, tables)
 
-# Introduction
+#intro
 with st.expander("Introduction"):
     show_intro()
 
-# Data Exploration
+#Data Exploration
 with st.expander("Data Exploration and Data Cleaning"):
 
-    # Dataset preview
+    #dataset preview
     st.subheader("Dataset Preview")
     st.dataframe(raw.head())
 
     st.write("Number of rows:", raw.shape[0])
     st.write("Number of columns:", raw.shape[1])
 
-    # Data Exploration
+    #data exploration
     st.subheader("Data Exploration")
 
     st.write("Column names:")
@@ -89,30 +89,30 @@ with st.expander("Data Exploration and Data Cleaning"):
 
     st.write("Duplicate rows:", tables["duplicates"])
 
-    # Cleaned Candidate Data
+    #cleaned candidate data
     st.subheader("Cleaned Candidate Data")
     st.dataframe(tables["candidates"].head())
     st.write("Number of candidate rows:", tables["candidates"].shape[0])
 
-    # Vote Consistency Check
+    #consistency check
     st.subheader("Vote Consistency Check")
 
     st.write("Total candidate votes:", tables["total_votes"])
     st.write("Total expressed votes:", tables["total_expressed"])
     st.write("Votes match:", tables["votes_match"])
 
-# Visualization 1
+#Visualization 1
 with st.expander("Visualization 1: National and Departmental Election Results"):
     visualisation1(tables, selected_department)
 
-# Visualization 2
+#Visualization 2
 with st.expander("Visualization 2 : Department Election Map"):
     visualisation2(tables)
 
-# Visualization 3
+#Visualization 3
 with st.expander("Visualization 3 : Where Were the Candidates Strongest ?"):
     visualisation3(tables)
 
-# Conclusion
+#Conclusion
 with st.expander("Conclusion"):
     show_conclusions()

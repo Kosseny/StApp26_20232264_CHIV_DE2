@@ -53,3 +53,4 @@ def candidate_department_chart(df):
     )
 
     return fig
+

@@ -2,14 +2,14 @@ import pandas as pd
 
 def make_tables(df):
 
-    # Dataset information
+    #dataset informations
     columns = df.columns.tolist()
     data_types = df.dtypes.astype(str)
     missing_values = df.isnull().sum()
     duplicates = df.duplicated().sum()
     df_candidates = prepare_candidates(df)
     
-    # National election results per candidate
+    #National results per candidate
     national_results = df_candidates.groupby(
         ["Nom", "Prénom"], as_index=False
     )["Voix"].sum()
@@ -20,18 +20,18 @@ def make_tables(df):
     
     national_results = national_results.reset_index(drop=True)
     
-    # Results for the map
+    #results for the map
     map_results = df_candidates.groupby(
         ["Code du département", "Libellé du département", "Nom"],
         as_index=False
     )["Voix"].sum()
     
-    # Find the winning candidate in each department
+    #the winning candidate in each department
     map_winners = map_results.loc[
         map_results.groupby("Code du département")["Voix"].idxmax()
     ].copy()
     
-    # Keep metropolitan departments only
+    # metropolitan departments only
     map_winners["Code du département"] = (
         map_winners["Code du département"].astype(str).str.zfill(2)
     )
@@ -40,33 +40,33 @@ def make_tables(df):
         map_winners["Code du département"].str.match(r"^(0[1-9]|[1-8][0-9]|9[0-5]|2A|2B)$")
     ]
     
-    # Candidate results by metropolitan department
+    #candidate results by metropolitan department
     department_votes = map_results.copy()
 
-    # Total expressed votes by department
+    #total expressed votes by department
     department_expressed = df.groupby(
         "Code du département", as_index=False
     )["Exprimés"].sum()
 
-    # Combine both tables
+    #both tables
     department_votes = department_votes.merge(
         department_expressed,
         on="Code du département"
     )
 
-    # Calculate vote percentage
+    #vote percentage
     department_votes["Vote Percentage"] = (
         department_votes["Voix"] / department_votes["Exprimés"] * 100
     )
 
-    # Keep metropolitan departments only
+    # metropolitan departments only
     metro_codes = set(map_winners["Code du département"])
 
     department_votes = department_votes[
         department_votes["Code du département"].isin(metro_codes)
     ]
     
-    # Number of metropolitan departments won by candidate
+    #Number of metropolitan departments won by candidate
     metro_departments_won = map_winners.groupby(
         "Nom", as_index=False
     ).size()
@@ -75,7 +75,7 @@ def make_tables(df):
         columns={"size": "Departments Won"}
     )
     
-    # Vote consistency check
+    #consistency check
     total_votes = df_candidates["Voix"].sum()
     total_expressed = df["Exprimés"].sum()
     votes_match = total_votes == total_expressed
@@ -99,10 +99,10 @@ def make_tables(df):
 
 def prepare_candidates(df):
 
-    # General election information
+    #All election information
     general = df.iloc[:, :21]
 
-    # Candidate information
+    #candidate informations
     candidates = []
 
     for i in range(12):
@@ -115,7 +115,7 @@ def prepare_candidates(df):
 
         candidates.append(candidate)
 
-    # Combine all candidates
+    #All candidates
     df_candidates = pd.concat(candidates, ignore_index=True)
 
     return df_candidates

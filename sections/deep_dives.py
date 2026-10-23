@@ -13,19 +13,19 @@ def visualisation3(tables):
 
     df = tables["department_votes"]
 
-    # Select a candidate
+    #Selection of a candidate
     candidate = st.selectbox(
         "Select a candidate:",
         sorted(df["Nom"].unique())
     )
 
-    # Filter the selected candidate
+    #selected candidate
     filtered_df = df[df["Nom"] == candidate]
 
-    # Select the top 10 departments
+    #top 10 departments
     top_10 = filtered_df.nlargest(10, "Vote Percentage")
 
-    # Display the chart
+    #Display
     fig = candidate_department_chart(top_10)
 
     st.plotly_chart(fig, use_container_width=True)
