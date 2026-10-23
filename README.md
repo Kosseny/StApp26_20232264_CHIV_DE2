@@ -8,6 +8,12 @@ This project is an interactive Streamlit dashboard analyzing the first round of 
 
 The goal is to compare national and departmental election results and explore geographical differences in voting patterns across France.
 
+## Live Dashboard
+
+The dashboard is available online:
+
+https://stapp26-20232264-chiv-de2.streamlit.app/
+
 ## Dataset
 
 The dataset contains the results of the first round of the 2022 French presidential election.
@@ -15,6 +21,14 @@ The dataset contains the results of the first round of the 2022 French president
 It includes information about registered voters, votes cast, abstentions, and votes received by the 12 candidates.
 
 The original dataset contains 69,682 rows and 105 columns.
+
+## Data Limitations
+
+The analysis focuses on the first round of the 2022 French presidential election.
+
+The national results include all voting territories, while the map and the third visualization focus on the 96 departments of metropolitan France.
+
+The dashboard describes geographical voting patterns but does not explain the reasons behind voters' choices.
 
 ## Visualizations
 
