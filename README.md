@@ -105,3 +105,7 @@ The geographical data used for the map is stored in `data/departements.geojson`.
 Geographical data (GeoJSON):
 
 https://github.com/gregoiredavid/france-geojson/blob/master/departements.geojson
+
+## GitHub Repository
+
+https://github.com/Kosseny/StApp26_20232264_CHIV_DE2
